@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -10,6 +11,7 @@ const formSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
   phone: z.string().optional(),
+  companyName: z.string().optional(),
   leadStatus: z.string().optional(),
 });
 
@@ -27,9 +29,17 @@ export function ContactForm({ onSubmit, onCancel }: ContactFormProps) {
       fullName: "",
       email: "",
       phone: "",
+      companyName: "",
       leadStatus: "New",
     },
   });
+
+  // This would typically come from your database
+  const companies = [
+    { id: "1", name: "Acme Corp" },
+    { id: "2", name: "Globex" },
+    { id: "3", name: "Hooli" },
+  ];
 
   return (
     <Form {...form}>
@@ -43,6 +53,33 @@ export function ContactForm({ onSubmit, onCancel }: ContactFormProps) {
               <FormControl>
                 <Input placeholder="John Doe" {...field} />
               </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="companyName"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-white">Company</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger className="bg-drive-dark text-white border-drive-border">
+                    <SelectValue placeholder="Select a company" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent className="bg-drive-dark border-drive-border">
+                  {companies.map((company) => (
+                    <SelectItem 
+                      key={company.id} 
+                      value={company.name}
+                      className="text-white hover:bg-drive-secondary"
+                    >
+                      {company.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </FormItem>
           )}
         />
