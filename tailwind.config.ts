@@ -61,7 +61,17 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+        // DriveCRM custom colors
+        'drive-dark': '#0D1117',
+        'drive-card': '#161B22',
+        'drive-primary': '#007AFF',
+        'drive-secondary': '#2F81F7',
+        'drive-border': '#30363D',
+        'drive-text': '#FFFFFF',
+        'drive-subtext': '#C9D1D9',
+        'drive-error': '#FF453A',
+        'drive-warning': '#FF9F0A'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
